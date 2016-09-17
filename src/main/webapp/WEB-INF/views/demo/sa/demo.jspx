@@ -1,0 +1,177 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: Mooxx
+  Date: 9/15/2016 AD
+  Time: 3:44 PM
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <html>
+    <head><title>Demo</title></head>
+    <body>
+    <form id="formCustomer" method="post" class="form-horizontal">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Customer</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="name">Name</label>
+                <div class="col-md-4">
+                    <input id="name" type="text" name="firstName" placeholder="Name" class="form-control input-md"/>
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="last">Last</label>
+                <div class="col-md-4">
+                    <input id="last" name="lastName" type="text" placeholder="Last" class="form-control input-md"/>
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="address">Address</label>
+                <div class="col-md-4">
+                    <input id="address" name="address" type="text" placeholder="Address" class="form-control input-md"/>
+
+                </div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="province">Province</label>
+                <div class="col-md-4">
+                    <select id="province" class="form-control" onchange="findAmphur()">
+                        <option value="" selected="selected" disabled="disabled">Province</option>
+                        <c:forEach var="province" items="${listProvince}">
+
+                            <option id="${province.id}">${province.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="amphur">Amphur</label>
+                <div class="col-md-4">
+                    <select id="amphur" class="form-control" onchange="findPostalCode()" >
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="postal">Postal Code</label>
+                <div class="col-md-4">
+                    <input id="postal" type="text" placeholder="Postal Code" class="form-control input-md" disabled="disabled"/>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="postal">Create</label>
+                <div class="col-md-4">
+                    <button class="btn btn-success"  type="submit" onclick="createCustomer()">Create</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <form class="form-horizontal">
+        <fieldset>
+
+
+            <div class="form-group">
+
+                <div class="col-md-12 col-md-offset-0">
+                    <div class="table-responsive">
+                        <table  id="tbAmphur" class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>Amphur</th>
+                                <th>Province</th>
+                                <th>Postal Code</th>
+                            </tr>
+                            </thead>
+                            <tbody id="idAmphur">
+                            <c:forEach var="Customer" items="${listCustomer}">
+                                <tr class="active">
+                                    <th>${Customer.id}</th>
+                                    <th>${Customer.firstName}</th>
+                                    <th>${Customer.lastName}</th>
+                                    <th>${Customer.amphur.name}</th>
+                                    <th>${Customer.amphur.province.name}</th>
+                                    <th>${Customer.amphur.postal_code}</th>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </fieldset>
+    </form>
+    <script type="text/javascript">
+
+    function findAmphur() {
+        var province = $('#province').find(":selected").text();
+        $.ajax({
+            url: "checkAmphur",
+            type: "GET",
+            data: {
+                province: province
+            },
+            success: function(data){
+                console.log(data)
+                var obj = JSON.parse(data);
+                $('#amphur').empty()
+                $.each(obj,function(i){
+                    var opt = new Option(obj[i].name,obj[i].postal_code);
+                    opt.setAttribute("id",obj[i].id)
+                    $('#amphur').append(opt)
+                });
+            },
+            error: function(){
+                sweetAlert("fail")
+            }
+        });
+
+    }
+
+    function findPostalCode(){
+        $('#postal').val($('#amphur').val())
+    }
+
+    function createCustomer() {
+        var data = $('#formCustomer').serialize();
+        data += "&amp;amphur=" + $('#amphur').children(":selected").attr("id");
+        $.ajax({
+            url: "createCustomer",
+            type: "POST",
+            data: data,
+            success: function(){
+                alert("success")
+            },
+            error: function(){
+                alert("fail")
+            }
+        });
+    }
+
+    </script>
+    </body>
+    </html>
+</jsp:root>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_com_demo_sa_domian_Amphur" items="${amphurs}" z="f4UuM5q0NoxswWHjiwRLoz3PA84=">
+        <table:table data="${amphurs}" id="l_com_demo_sa_domian_Amphur" path="/amphurs" z="mIx0U7QLk/6rwaoE9MHlm7Oc+Dk=">
+            <table:column id="c_com_demo_sa_domian_Amphur_name" property="name" z="f0I16pomPweYEBX57M6oB8ckjlw="/>
+            <table:column id="c_com_demo_sa_domian_Amphur_postal_code" property="postal_code" z="8VOwsvrKQY4ieUIRqQjAaMOqOzI="/>
+            <table:column id="c_com_demo_sa_domian_Amphur_province" property="province" z="Bg2MRRKYwPiHkna4mNA/AWMKbgA="/>
+        </table:table>
+    </page:list>
+</div>

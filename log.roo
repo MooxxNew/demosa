@@ -1,0 +1,27 @@
+// Spring Roo 1.3.2.RELEASE [rev 8387857] log opened at 2016-09-17 15:43:59
+project --topLevelPackage com.demo.sa
+jpa setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY 
+entity jpa --class ~.domian.Province
+field string --fieldName name --notNull --sizeMin 2
+entity jpa --class ~.domian.Amphur
+field string --fieldName name --notNull --sizeMin 2
+field string --fieldName postal_code --notNull --sizeMin 2
+field reference --fieldName province --type ~.domian.Province
+entity jpa --class ~.domian.Customer
+field string --fieldName firstName --notNull --sizeMin 2
+field string --fieldName lastName --notNull --sizeMin 2
+field string --fieldName address --notNull --sizeMin 2
+field reference --fieldName amphur --type ~.domian.Amphur
+web mvc setup
+web mvc all --package ~.web
+focus --class ~.domian.Amphur
+finder list
+finder add findAmphursByProvince
+focus --class ~.domian.Province
+finder list
+finder add --finderName findProvincesByNameLike
+focus --class ~.domian.Amphur
+finder list
+finder add findAmphursByNameLike
+jpa setup --provider HIBERNATE --database HYPERSONIC_PERSISTENT 
+// Spring Roo 1.3.2.RELEASE [rev 8387857] log opened at 2016-09-17 16:09:48

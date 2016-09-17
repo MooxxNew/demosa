@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="saTemplate" name="demo/sa">
+        <put-attribute name="body" value="/WEB-INF/views/demo/sa/demo.jspx"/>
+    </definition>
+
+    <definition extends="saTemplate" name="demo/sa1">
+        <put-attribute name="body" value="/WEB-INF/views/demo/sa/demo1.jspx"/>
+    </definition>
+
+    <definition extends="saTemplate" name="demo/sa2">
+        <put-attribute name="body" value="/WEB-INF/views/demo/sa/demo2.jspx"/>
+    </definition>
+
+    <definition extends="saTemplate" name="demo/amphur">
+        <put-attribute name="body" value="/WEB-INF/views/demo/sa/amphur.jspx"/>
+    </definition>
+
+    <definition extends="saTemplate" name="demo/province">
+        <put-attribute name="body" value="/WEB-INF/views/demo/sa/province.jspx"/>
+    </definition>
+</tiles-definitions>

@@ -1,0 +1,6 @@
+target/
+.DS_Store
+wddb/
+derby.log
+.idea/
+wd.iml

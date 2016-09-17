@@ -43,8 +43,6 @@ public class Demo {
         return "demo/sa";
     }
 
-
-
     @RequestMapping(value = "/checkAmphur",method = RequestMethod.GET,produces = "text/html")
     public ResponseEntity<String> checkAmphur(@RequestParam(value = "province", required = false) String province) {
         List<Amphur> listAmphurall = findAllAmphurs();
@@ -60,7 +58,6 @@ public class Demo {
         return new ResponseEntity<String>(new JSONSerializer().exclude("*.class").deepSerialize(listAmphur), HttpStatus.OK);
     }
 
-
     @RequestMapping(value = "/createCustomer",method = RequestMethod.POST,produces = "text/html")
     public String createCustomer(@Valid Customer customer, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletReques){
         Customer ct = new Customer();
@@ -72,6 +69,17 @@ public class Demo {
         ct.persist();
         return "demo/sa";
     }
+
+    @RequestMapping(value = "/deleteCustomer",method = RequestMethod.GET,produces = "text/html")
+    public String deleteCustomer(Model uiModel, @RequestParam(value = "idCustomer", required = false) String idCustomer){
+        System.out.println(Customer.findCustomer(Long.valueOf(idCustomer)));
+        Customer cs = Customer.findCustomer(Long.valueOf(idCustomer));
+        cs.remove();
+        List<Customer> listCustomer = Customer.findAllCustomers();
+        uiModel.addAttribute("listCustomer",listCustomer);
+        return "demo/sa";
+    }
+
 
     @RequestMapping(value = "/sa1", produces = "text/html")
     public String viewDemo1(Model uiModel) {

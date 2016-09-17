@@ -100,17 +100,19 @@
                                 <th>Amphur</th>
                                 <th>Province</th>
                                 <th>Postal Code</th>
+                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody id="idAmphur">
                             <c:forEach var="Customer" items="${listCustomer}">
-                                <tr class="active">
+                                <tr  class="active">
                                     <th>${Customer.id}</th>
                                     <th>${Customer.firstName}</th>
                                     <th>${Customer.lastName}</th>
                                     <th>${Customer.amphur.name}</th>
                                     <th>${Customer.amphur.province.name}</th>
                                     <th>${Customer.amphur.postal_code}</th>
+                                    <th><input type='button' id="${Customer.id}" class="btn btn-danger" value="Delete" onclick="deleteCustomer(this)"/></th>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -167,6 +169,22 @@
             },
             error: function(){
                 alert("fail")
+            }
+        });
+    }
+
+    function deleteCustomer(idCustomer){
+        $.ajax({
+            url: "deleteCustomer",
+            type: "GET",
+            data: {
+                idCustomer: idCustomer.id
+            },
+            success: function(data){
+                location.reload()
+            },
+            error: function(){
+                sweetAlert("fail")
             }
         });
     }

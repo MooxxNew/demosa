@@ -167,7 +167,7 @@
                 statusCode: {
                     200: function(data) {
                         var obj = JSON.parse(data);
-                        $('#tbAmphur').empty()
+                        $('#idAmphur').empty()
                         $.each(obj,function(i){
                             var newRowContent = "&lt;tr class=\"active\">&lt;th>"+ obj[i].id +"&lt;/th>&lt;th>"+ obj[i].name +"&lt;/th>&lt;th>"+ obj[i].province.name +"&lt;/th>&lt;th>"+ obj[i].postal_code +"&lt;/th>&lt;/tr>";
                             $(newRowContent).appendTo($('#tbAmphur'))
